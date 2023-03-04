@@ -9,10 +9,12 @@ import (
 	"net/http"
 )
 
-func PostRequest(uri string, body io.Reader, client http.Client) (string, error) {
+
+
+func PostRequest(uri string, body io.Reader) (string, error) {
 	fmt.Print("Make post request on: ")
 	fmt.Println(uri)
-	response, err := client.Post(uri, "application/json", body)
+	response, err := http.Post(uri, "application/json", body)
 
 	if err != nil {
 		fmt.Println("failed to handle post request")
@@ -33,6 +35,8 @@ func PostRequest(uri string, body io.Reader, client http.Client) (string, error)
 	fmt.Println(result)
 
 	return result, nil
+
+
 }
 
 func PatchRequest(uri string, body any) (string, error) {
