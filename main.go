@@ -9,8 +9,6 @@ import (
 	"net/http"
 )
 
-
-
 func PostRequest(uri string, body io.Reader) (string, error) {
 	fmt.Print("Make post request on: ")
 	fmt.Println(uri)
@@ -35,8 +33,6 @@ func PostRequest(uri string, body io.Reader) (string, error) {
 	fmt.Println(result)
 
 	return result, nil
-
-
 }
 
 func PatchRequest(uri string, body any) (string, error) {
@@ -129,4 +125,27 @@ func GetRequest(uri string) (string, error) {
 	fmt.Println(result)
 
 	return result, nil
+}
+
+func DeleteRequest(uri string)(error){
+	fmt.Println("Deleting record on: ", uri)
+
+	client := &http.Client{}
+	req, err := http.NewRequest(http.MethodDelete, uri, nil)
+
+	if err != nil {
+		fmt.Println("Failed to create request")
+		return err
+	}
+
+	response, err := client.Do(req)
+
+	if err != nil {
+		fmt.Println("Failed to delete record", err)
+		return err
+	}
+
+	defer response.Body.Close()
+
+	return nil
 }
